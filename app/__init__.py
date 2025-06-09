@@ -21,7 +21,13 @@ def create_app():
     from app import models
 
     jwt.init_app(app)
-    cors.init_app(app, supports_credentials=True, origins=["http://localhost:3001", "http://localhost:3000",])
+    cors.init_app(app, origins=[
+        # "http://localhost:3000",    # React frontend
+        # "http://localhost:3001",    # Admin frontend
+        "https://swift-supply.xyz", # Production React frontend
+        "https://www.swift-supply.xyz", # Production React frontend (www subdomain)
+        "https://admin.swift-supply.xyz", # Admin panel subdomain
+    ])    
     mail.init_app(app)
 
     @app.route('/images/<filename>', methods=['GET'])
